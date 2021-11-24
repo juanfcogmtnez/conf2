@@ -177,16 +177,16 @@ class Conf2(models.Model):
 		logger.info('hola soy')
 		logger.info(record.name)
 		view_id = self.env.ref('conf2.view_tareas_tree').id
+		context = dict(self.env.context)
+		context['form_view_initial_mode'] = 'edit'
 		return{
-			'name':'Lista de tareas de proyecto',
-			'view_type':'form',
-			'view_mode':'kanban,tree',
-			'views':[[view_id,'tree']],
-			'res_model':'tarea',
 			'type':'ir.actions.act_window',
-			'domain':[('parent_id','=',record.name)],
+			'view_mode':'tree,form',
+			'views':[[view_id,'tree'],[false,'form']],
+			'res_model':'tarea',
+			'domain':[['parent_id','=',record.name]],
 			'target':'current',
-		}
+			}
 
 	def _get_stages(self, states, domain, order):
 		
