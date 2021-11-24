@@ -89,7 +89,7 @@ class Tarea(models.Model):
 		return{
 			'type':'ir.actions.act_window',
 			'view_mode':'tree,form',
-			'views':[[view_id,'tree'],[false,'form']],
+			'views':[[view_id,'tree'],[False,'form']],
 			'res_model':'espacios',
 			'domain':[['parent_id','=',record.name]],
 			'target':'current',

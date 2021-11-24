@@ -42,12 +42,22 @@ class Espacios(models.Model):
 		return{
 			'type':'ir.actions.act_window',
 			'view_mode':'tree,form',
-			'views':[[view_id,'tree'],[false,'form']],
+			'views':[[view_id,'tree'],[False,'form']],
 			'res_model':'equipacion',
 			'domain':[['parent_id','=',record.name]],
 			'target':'current',
 			}
-		@api.model
+
+	def create_equipment(self):
+		for record in self:
+			logger.info('aqui van los records')
+			logger.info(record)
+		logger.info('in record:',record.id)
+		logger.info('boton crear local')
+		logger.info('este es mi padre')
+		logger.info(record.parent_id.id)
+		record = self.env['equipacion'].create({'parent_id':record.id,'tarea_id':record.parent_id.id})
+
 	def is_allowed_transition(self, old_state , new_state):
 		logger.info('allowed?')
 		logger.info('este es el self')

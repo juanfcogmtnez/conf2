@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8">
+<?xml version="1.0" encoding="utf-8" ?>
 
 <odoo>
 	<record id="view_espacios_form" model="ir.ui.view">
@@ -53,7 +53,7 @@
 				<field name="planta"/>
 				<field name="name"/>
 				<field name="local"/>
-				<field name="sub_local" option="hide"/>
+				<field name="sub_local" optional="hide"/>
 				<field name="superficie"/>
 				<field name="ull_id"/>
 			</tree>

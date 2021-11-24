@@ -93,7 +93,7 @@ class Equipacion(models.Model):
 			'domain':[['parent_id','=',record.name]],
 			'target':'current',
 			}
-			@api.model
+	@api.model
 	def is_allowed_transition(self, old_state , new_state):
 		logger.info('allowed?')
 		logger.info('este es el self')

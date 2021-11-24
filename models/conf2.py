@@ -130,7 +130,7 @@ class Conf2(models.Model):
 				record.completado = total_completado
 			else:
 				record.completado = 0.0
-	@api.model
+
 	def is_allowed_transition(self, old_state , new_state):
 		logger.info('allowed?')
 		logger.info('este es el self')
@@ -182,12 +182,11 @@ class Conf2(models.Model):
 		return{
 			'type':'ir.actions.act_window',
 			'view_mode':'tree,form',
-			'views':[[view_id,'tree'],[false,'form']],
+			'views':[[view_id,'tree'],[False,'form']],
 			'res_model':'tarea',
 			'domain':[['parent_id','=',record.name]],
 			'target':'current',
 			}
 
 	def _get_stages(self, states, domain, order):
-		
 		return ['creado','curso','revision','enviado']
