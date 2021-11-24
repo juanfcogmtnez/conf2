@@ -70,18 +70,4 @@
 			</tree>
 		</field>
 	</record>
-        <record id="view_tareas_tree_2" model="ir.ui.view">
-                <field name="name">Vista lista de tareas 2</field>
-                <field name="model">tarea</field>
-                <field name="arch" type="xml">
-                        <tree editable="top">
-                                <field name="parent_id" invisible="1"/>
-                                <field name="name"/>
-                                <field name="completado"/>
-                                <field name="fecha_ini"/>
-                                <field name="fecha_fin"/>
-                        </tree>
-                </field>
-        </record>
-
 </odoo>

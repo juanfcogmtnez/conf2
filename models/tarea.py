@@ -87,16 +87,13 @@ class Tarea(models.Model):
 		logger.info(record.name)
 		view_id = self.env.ref('conf2.view_espacios_tree').id
 		return{
-			'name':'Lista de espacios de proyecto',
-			'view_type':'form',
-			'view_mode':'tree',
-			'views':[[view_id,'tree']],
-			'res_model':'espacios',
 			'type':'ir.actions.act_window',
-			'domain':[('parent_id','=',record.name)],
+			'view_mode':'tree,form',
+			'views':[[view_id,'tree'],[false,'form']],
+			'res_model':'espacios',
+			'domain':[['parent_id','=',record.name]],
 			'target':'current',
-		}
-
+			}
 	def _get_stages(self, states, domain, order):
 		
 		return ['creado','curso','revision','enviado']

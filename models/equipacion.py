@@ -47,6 +47,14 @@ class Equipacion(models.Model):
 	car_largo = fields.Float(string="Largo(cm)")
 	car_peso = fields.Float(string="Peso(kg)")
 	superficie = fields.Float(string="Superficie (cm2)",compute="_sup_basic",stored=True)
+	state = fields.Selection(
+				[('creado','Creado'),
+				 ('curso','En curso'),
+				 ('consolidado','Consolidado'),
+				 ('revision','En revisión'),
+				 ('enviado','Enviado')],
+				default='creado',string="Estado",group_expand='_get_stages'
+				)
 	@api.onchange('car_ancho','car_largo')
 	def _sup_basic(self):
 		cm_superficie = self.car_ancho * self.car_largo
@@ -67,4 +75,65 @@ class Equipacion(models.Model):
  	#conex_ups = fields.Boolean(string="¿Necesita el equipo conexión a circuito eléctrico de emergencia?", default=False)
 	conex_com = fields.Boolean(string="¿Necesita el equipo conexión a red de comunicaciones?", default=False)
 	conex_ups = fields.Boolean(string="¿Necesita el equipo conexión a circuito eléctrico de emergencia?", default=False)
-
+	def ver_opciones(self):
+		logger.info('hola soy el boton de opciones filtrados')
+		logger.info('soy el self')
+		logger.info(self)
+		logger.info('somos los records')
+		for record in self:
+			logger.info(record)
+		logger.info('hola soy')
+		logger.info(record.name)
+		view_id = self.env.ref('conf2.view_equipamiento_tree').id
+		return{
+			'type':'ir.actions.act_window',
+			'view_mode':'tree,form',
+			'views':[[view_id,'tree'],[false,'form']],
+			'res_model':'equipacion',
+			'domain':[['parent_id','=',record.name]],
+			'target':'current',
+			}
+			@api.model
+	def is_allowed_transition(self, old_state , new_state):
+		logger.info('allowed?')
+		logger.info('este es el self')
+		logger.info(self)
+		logger.info('este es el old_state')
+		logger.info(old_state)
+		logger.info('este es el new_state')
+		logger.info(new_state)
+		allowed = [('creado','curso'),
+			   ('curso','revision'),
+			   ('revision','consolidado'),
+			   ('consolidado','revision'),
+			   ('enviado','revision'),
+			   ('revision','consolidado'),
+			   ('consolidado','curso'),
+			   ('curso','creado')]
+		return (old_state, new_state) in allowed
+	
+	def change_state(self, new_state):
+		logger.info('cambiando estado')
+		logger.info('este es el self')
+		logger.info(self)
+		logger.info('este es el nuevo estado')
+		logger.info(new_state)
+		for project in self:
+			logger.info('dentro del for')
+			if project.is_allowed_transition(project.state,new_state):
+				logger.info('dentro del if')
+				project.state = new_state
+			else:
+				msg = _('Establecer desde %s a %s no está permitido') % (project.state, new_state)
+				raise UserError(msg)
+	def make_curso(self):
+		self.change_state('curso')
+	def make_consolidado(self):
+		self.change_state('consolidado')
+	def make_revision(self):
+		self.change_state('revision')
+	def make_enviado(self):
+		self.change_state('enviado')
+	def _get_stages(self, states, domain, order):
+		
+		return ['creado','curso','consolidado','revision','enviado']
