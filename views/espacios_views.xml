@@ -47,11 +47,11 @@
 		<field name="model">espacios</field>
 		<field name="arch" type="xml">
 			<tree>	
-				<field name="proyecto_id" invisible="1"/>
-				<field name="parent_id" invisible="1"/>
-				<field name="bloque"/>
-				<field name="planta"/>
-				<field name="name"/>
+				<field name="proyecto_id" optional="hide"/>
+				<field name="parent_id" optional="hide"/>
+				<field name="bloque" optional="hide"/>
+				<field name="planta" optional="hide"/>
+				<field name="name" optional="show"/>
 				<field name="local"/>
 				<field name="sub_local" optional="hide"/>
 				<field name="superficie"/>

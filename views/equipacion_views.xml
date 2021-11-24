@@ -109,20 +109,20 @@
                 <field name="model">equipacion</field>
                 <field name="arch" type="xml">
                         <tree>
-				<field name="proyecto_id"/>
-				<field name="tarea_id"/>
-				<field name="parent_id"/>
-				<field name="name"/>
+				<field name="proyecto_id" optional="hide"/>
+				<field name="tarea_id" optional="hide"/>
+				<field name="parent_id" optional="hide"/>
+				<field name="name" optional="hide"/>
 				<field name="equipo_cliente"/>
+				<field name="equipamiento_name"/>
 				<field name="cantidad"/>
-				<field name="unidad"/>
-                                <field name="equipamiento_name"/>
-                                <field name="ull_ids" widget="many2many_tags"/>
-                                <field name="sub_ull_ids" widget="many2many_tags"/>
-                                <field name="sub_ull_2_ids" widget="many2many_tags"/>
-                                <field name="tipo"/>
-                                <field name="sub_tipo"/>
-                                <field name="tipo_arq"/>
+				<field name="unidad" optional="hide"/>
+                <field name="ull_ids" widget="many2many_tags" optional="show"/>
+                <field name="sub_ull_ids" widget="many2many_tags" optional="show"/>
+                <field name="sub_ull_2_ids" widget="many2many_tags" optional="show"/>
+                <field name="tipo" optional="hide"/>
+                <field name="sub_tipo" optional="hide"/>
+                <field name="tipo_arq" optional="hide"/>
                         </tree>
                 </field>
         </record>

@@ -61,7 +61,7 @@
 		<field name="model">tarea</field>
 		<field name="arch" type="xml">
 			<tree editable="top">	
-				<field name="parent_id" invisible="1"/>
+				<field name="parent_id" optional="hide"/>
 				<button type="object" name="get_formview_action" string="Editar" icon="fa-edit"/>
 				<field name="name"/>
 				<field name="completado"/>
